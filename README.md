@@ -51,7 +51,7 @@ Excluded:
 
 ## Current Status
 
-Wrapper created. First synthetic ERP source layer added.
+Synthetic ERP source layer, canonical transaction model, validation exception queue, intercompany review shape and local pipeline runner added.
 
 ## Generate Synthetic ERP Data
 
@@ -81,3 +81,11 @@ python -m tax_data_lab.reporting_shapes --canonical-file data/processed/canonica
 This writes:
 
 - `intercompany_transaction_review.csv`
+
+## Run Full Local Pipeline
+
+```bash
+python -m tax_data_lab.run_pipeline --base-dir data/pipeline_run --transactions 500 --seed 42
+```
+
+This writes bronze-style source files, silver-style processed files, a gold-style reporting shape and a monitoring manifest with row counts.
