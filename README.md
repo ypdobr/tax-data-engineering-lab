@@ -71,3 +71,13 @@ This writes:
 
 - `canonical_transactions.csv`
 - `validation_exceptions.csv`
+
+## Build Reporting Shapes
+
+```bash
+python -m tax_data_lab.reporting_shapes --canonical-file data/processed/canonical_transactions.csv --output-dir data/reporting
+```
+
+This writes:
+
+- `intercompany_transaction_review.csv`

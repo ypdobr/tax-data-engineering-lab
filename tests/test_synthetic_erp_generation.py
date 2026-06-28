@@ -2,6 +2,7 @@ from pathlib import Path
 
 from tax_data_lab.canonical_model import build_canonical_transactions, validate_transactions
 from tax_data_lab.data_generation.generate_synthetic_erp import generate
+from tax_data_lab.reporting_shapes import build_intercompany_review_shape
 
 
 def read_header(path: Path) -> list[str]:
@@ -56,3 +57,14 @@ def test_validation_rules_return_review_queue(tmp_path: Path) -> None:
 
     assert isinstance(exceptions, list)
     assert all("rule_id" in item for item in exceptions)
+
+
+def test_intercompany_review_shape_aggregates_group_transactions(tmp_path: Path) -> None:
+    generate(tmp_path, seed=7, transaction_count=30)
+    canonical = build_canonical_transactions(tmp_path)
+
+    review_rows = build_intercompany_review_shape(canonical)
+
+    assert review_rows
+    assert all(row["relationship_type"] == "group" for row in review_rows)
+    assert all("review_flag" in row for row in review_rows)
