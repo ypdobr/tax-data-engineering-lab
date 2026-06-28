@@ -60,3 +60,14 @@ python -m tax_data_lab.data_generation.generate_synthetic_erp --output-dir data/
 ```
 
 The generated CSV files stay in `data/`, which is ignored by Git.
+
+## Build Canonical Transactions
+
+```bash
+python -m tax_data_lab.canonical_model --input-dir data/synthetic_erp --output-dir data/processed
+```
+
+This writes:
+
+- `canonical_transactions.csv`
+- `validation_exceptions.csv`

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from tax_data_lab.canonical_model import build_canonical_transactions, validate_transactions
 from tax_data_lab.data_generation.generate_synthetic_erp import generate
 
 
@@ -35,3 +36,23 @@ def test_invoice_schema_is_stable(tmp_path: Path) -> None:
         "source_system",
     ]
 
+
+def test_canonical_model_creates_reviewable_transactions(tmp_path: Path) -> None:
+    generate(tmp_path, seed=7, transaction_count=10)
+
+    rows = build_canonical_transactions(tmp_path)
+
+    assert rows
+    assert "transaction_id" in rows[0]
+    assert "amount_eur" in rows[0]
+    assert "source_reference" in rows[0]
+
+
+def test_validation_rules_return_review_queue(tmp_path: Path) -> None:
+    generate(tmp_path, seed=7, transaction_count=10)
+    rows = build_canonical_transactions(tmp_path)
+
+    exceptions = validate_transactions(rows)
+
+    assert isinstance(exceptions, list)
+    assert all("rule_id" in item for item in exceptions)
