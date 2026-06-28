@@ -13,3 +13,8 @@ Rules:
 
 Raw synthetic datasets should stay small enough for public review.
 
+Schema documentation:
+
+- `schemas/erp_source_schema.md`
+
+Generated CSV output belongs in `data/` and is ignored by Git.

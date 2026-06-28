@@ -51,5 +51,12 @@ Excluded:
 
 ## Current Status
 
-Wrapper created. No implementation or data added yet.
+Wrapper created. First synthetic ERP source layer added.
 
+## Generate Synthetic ERP Data
+
+```bash
+python -m tax_data_lab.data_generation.generate_synthetic_erp --output-dir data/synthetic_erp --transactions 250
+```
+
+The generated CSV files stay in `data/`, which is ignored by Git.
