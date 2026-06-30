@@ -1,12 +1,12 @@
 # Tax Data Engineering Lab
 
-Safe public portfolio wrapper for tax, finance data engineering and applied AI.
+Synthetic data engineering lab for tax and finance workflows.
 
 This repository is designed as a synthetic-data lab. It must not contain client data, Deloitte materials, proprietary workflow logic, confidential templates, screenshots, extracts, or copied report structures.
 
 ## Positioning
 
-The lab explores how tax and finance data can move from raw ERP-style tables into controlled review products:
+The lab shows how tax and finance data can move from raw ERP-style tables into controlled review products. The core pattern is simple:
 
 - source ingestion
 - canonical data model
@@ -17,6 +17,30 @@ The lab explores how tax and finance data can move from raw ERP-style tables int
 - AI-assisted review
 
 The goal is a reusable architecture, not a clone of any client or employer workflow.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A["Synthetic ERP-style source tables"] --> B["Canonical transaction model"]
+    B --> C["Validation rules"]
+    C --> D["Exception queue"]
+    B --> E["Reporting shapes"]
+    E --> F["Reviewable outputs"]
+    D --> F
+    G["Self-written documentation"] --> H["RAG review support"]
+    H --> F
+```
+
+The first implemented slice creates synthetic invoices and invoice lines, maps them into canonical transactions, checks data quality and produces an intercompany transaction review shape. The same structure can support VAT checks, Intrastat checks and CBAM-style reporting inputs without copying any workplace logic.
+
+## What This Demonstrates
+
+- Data modeling from ERP-style source tables into a reusable transaction layer.
+- Validation logic that surfaces missing values, inconsistent mappings and review exceptions.
+- A reporting shape that turns normalized transaction data into a reviewable output.
+- A public-safe way to discuss tax data engineering without exposing employer or client material.
+- A base for future AI-assisted review over self-written documentation.
 
 ## Safe Scope
 
@@ -52,6 +76,16 @@ Excluded:
 ## Current Status
 
 Synthetic ERP source layer, canonical transaction model, validation exception queue, intercompany review shape and local pipeline runner added.
+
+Verified local run:
+
+```text
+bronze invoices: 50
+bronze invoice lines: 126
+silver canonical transactions: 126
+silver validation exceptions: 20
+gold intercompany review rows: 24
+```
 
 ## Generate Synthetic ERP Data
 
@@ -89,3 +123,11 @@ python -m tax_data_lab.run_pipeline --base-dir data/pipeline_run --transactions 
 ```
 
 This writes bronze-style source files, silver-style processed files, a gold-style reporting shape and a monitoring manifest with row counts.
+
+## Roadmap
+
+1. Add DuckDB-backed local storage for larger synthetic runs.
+2. Add VAT and Intrastat validation shapes.
+3. Add a CBAM-style input preparation module with synthetic supplier and product data.
+4. Add RAG over self-written documentation for review support.
+5. Add a compact dashboard or report view for exceptions and output checks.
