@@ -2,7 +2,7 @@
 
 Synthetic data engineering lab for tax and finance workflows.
 
-This repository is designed as a synthetic-data lab. It must not contain client data, Deloitte materials, proprietary workflow logic, confidential templates, screenshots, extracts, or copied report structures.
+This repository is a synthetic-data lab. It uses invented ERP-style data, generic tax and finance concepts, open-source Python code and self-written documentation.
 
 ## Positioning
 
@@ -16,7 +16,7 @@ The lab shows how tax and finance data can move from raw ERP-style tables into c
 - documentation
 - AI-assisted review
 
-The goal is a reusable architecture, not a clone of any client or employer workflow.
+The architecture is reusable and public-safe. It demonstrates the data engineering pattern without copying client, employer or delivery assets.
 
 ## Architecture
 
@@ -32,7 +32,7 @@ flowchart LR
     H --> F
 ```
 
-The first implemented slice creates synthetic invoices and invoice lines, maps them into canonical transactions, checks data quality and produces an intercompany transaction review shape. The same structure can support VAT checks, Intrastat checks and CBAM-style reporting inputs without copying any workplace logic.
+The first implemented slice creates synthetic invoices and invoice lines, maps them into canonical transactions, checks data quality and produces an intercompany transaction review shape. The same structure can support VAT checks, Intrastat checks and CBAM-style reporting inputs.
 
 ## What This Demonstrates
 
@@ -41,6 +41,19 @@ The first implemented slice creates synthetic invoices and invoice lines, maps t
 - A reporting shape that turns normalized transaction data into a reviewable output.
 - A public-safe way to discuss tax data engineering without exposing employer or client material.
 - A base for future AI-assisted review over self-written documentation.
+
+## Portfolio Signal
+
+This lab is intended to show ownership of a data product, not only tool familiarity:
+
+- source data design
+- canonical model design
+- validation rules
+- exception queues
+- reporting outputs
+- monitoring manifests
+- governance boundaries
+- AI-assisted review design
 
 ## Safe Scope
 
@@ -85,6 +98,28 @@ bronze invoice lines: 126
 silver canonical transactions: 126
 silver validation exceptions: 20
 gold intercompany review rows: 24
+```
+
+## Verification
+
+Run the tests:
+
+```bash
+$env:PYTHONPATH="src"
+python -m pytest
+```
+
+Run the pipeline:
+
+```bash
+$env:PYTHONPATH="src"
+python -m tax_data_lab.run_pipeline --base-dir data/pipeline_run --transactions 500 --seed 42
+```
+
+Publication check:
+
+```text
+The repository contains synthetic data and generic architecture only. Public safety notes are tracked in docs/governance.
 ```
 
 ## Generate Synthetic ERP Data
