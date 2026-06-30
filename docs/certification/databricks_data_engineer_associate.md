@@ -1,7 +1,7 @@
 # Databricks Data Engineer Associate Prep
 
 Reference:
-`C:\Users\Yurii\Documents\Codex\manager_anchor_execution\references\Databricks_Data_Engineer_Associate_Exam_Guide_May_2026.pdf`
+Official Databricks Data Engineer Associate exam guide, May 2026.
 
 Goal:
 Use this repo as the practical training object for the exam domains while keeping the profile anchored in tax and finance data engineering.
