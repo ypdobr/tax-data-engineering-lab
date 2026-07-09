@@ -102,18 +102,16 @@ gold intercompany review rows: 24
 
 ## Verification
 
-Run the tests:
+Run the tests (pytest picks up `pythonpath = ["src"]` from `pyproject.toml`, so no extra setup is needed):
 
 ```bash
-$env:PYTHONPATH="src"
 python -m pytest
 ```
 
-Run the pipeline:
+Run the pipeline (module runs need `src` on the import path):
 
 ```bash
-$env:PYTHONPATH="src"
-python -m tax_data_lab.run_pipeline --base-dir data/pipeline_run --transactions 500 --seed 42
+PYTHONPATH=src python -m tax_data_lab.run_pipeline --base-dir data/pipeline_run --transactions 500 --seed 42
 ```
 
 Publication check:
