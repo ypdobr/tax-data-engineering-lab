@@ -1,5 +1,7 @@
 # IC Matrix Pipeline
 
+![Tax Data Engineering Lab social preview](assets/social-preview.png)
+
 An end-to-end intercompany transaction matrix on synthetic SAP-style data. Line items go in, a validated entity-by-entity matrix and an exception report come out.
 
 The design principle is the one that matters in tax and audit work: **full-population validation**. Every document is checked against every rule on every run. Sampling hides exactly the errors you are paid to find.
